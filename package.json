@@ -1,0 +1,59 @@
+{
+  "name": "@sebastianwd/stacksmith",
+  "version": "0.1.0",
+  "description": "Scaffold coding projects with saved better-t-stack templates, library recommendations, and post-scaffold modifications. Claude Code + Cursor skill, backed by a TypeScript CLI.",
+  "keywords": [
+    "better-t-stack",
+    "claude-code",
+    "cli",
+    "cursor",
+    "scaffold",
+    "skill",
+    "template",
+    "typescript"
+  ],
+  "homepage": "https://github.com/sebastianwd/stacksmith",
+  "license": "Apache-2.0",
+  "author": "sebastianwd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianwd/stacksmith.git"
+  },
+  "bin": {
+    "stacksmith": "dist/cli/bin.mjs"
+  },
+  "files": [
+    "dist",
+    "defaults",
+    "skill",
+    "LICENSE",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsdown && tsx scripts/build.ts",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "format": "oxfmt src scripts tests"
+  },
+  "dependencies": {
+    "@better-t-stack/types": "^3.30.3",
+    "execa": "^9.6.1",
+    "yaml": "^2.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "oxfmt": "^0.52.0",
+    "oxlint": "^1.67.0",
+    "tsdown": "^0.22.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
