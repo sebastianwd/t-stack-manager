@@ -1,5 +1,11 @@
 # t-stack-manager
 
+## 0.1.2
+
+### Patch Changes
+
+- 403d3c8: Scaffold now asks for the project name and target directory as plain text instead of a multiple-choice picker (which rejected free-form answers), and offers the current directory as a target option when no default is saved.
+
 ## 0.1.1
 
 ### Patch Changes
