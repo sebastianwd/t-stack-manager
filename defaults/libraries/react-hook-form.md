@@ -16,4 +16,4 @@ license: MIT
 
 Minimal re-renders, small API, integrates with schema validators via resolvers.
 
-Delete this default with `stacksmith remove libraries react-hook-form` if you don't want it.
+Delete this default with `t-stack-manager remove libraries react-hook-form` if you don't want it.

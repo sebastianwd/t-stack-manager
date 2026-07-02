@@ -1,11 +1,11 @@
-import type { StacksmithError } from "./result.js";
+import type { TStackManagerError } from "./result.js";
 
 /** Machine JSON goes to stdout; human text goes to stderr. */
 export function emitJson(payload: unknown): void {
   process.stdout.write(`${JSON.stringify(payload)}\n`);
 }
 
-export function emitError(json: boolean, error: StacksmithError): void {
+export function emitError(json: boolean, error: TStackManagerError): void {
   if (json) {
     emitJson({ ok: false, error });
     return;

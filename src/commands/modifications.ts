@@ -87,7 +87,7 @@ async function addCmd(args: ModificationsArgs): Promise<number> {
     version: "1",
     license: "",
   };
-  const note = `Captured by \`stacksmith modifications add\` from a modified scaffold${
+  const note = `Captured by \`t-stack-manager modifications add\` from a modified scaffold${
     args.template ? ` (base template: ${args.template})` : ""
   }. Applies cleanly to its own template; on a different template, apply the diff as intent (the agent adapts paths/structure).`;
 
@@ -136,7 +136,7 @@ async function addCmd(args: ModificationsArgs): Promise<number> {
       return 1;
     }
 
-    const body = `# ${args.asTemplate}\n\n\`${args.template}\` with the \`${args.id}\` modification linked. Created by \`stacksmith modifications add --as-template\`.`;
+    const body = `# ${args.asTemplate}\n\n\`${args.template}\` with the \`${args.id}\` modification linked. Created by \`t-stack-manager modifications add --as-template\`.`;
     const savedBundle = saveTemplate(bundle, body, { force: args.force });
     if (!savedBundle.ok) {
       emitError(args.json, savedBundle.error);

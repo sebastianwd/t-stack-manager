@@ -8,13 +8,13 @@ import type { Library } from "../src/schemas/library.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-lib-test-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "libraries"), { recursive: true });
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-lib-test-"));
+  fs.mkdirSync(path.join(tmp, ".t-stack-manager", "libraries"), { recursive: true });
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 
@@ -53,7 +53,7 @@ describe("saveLibrary + loadLibrary", () => {
   it("does not persist a version field (resolved at install time)", () => {
     saveLibrary(lib({}), "body");
     const raw = fs.readFileSync(
-      path.join(tmp, ".stacksmith", "packs", "default", "libraries", "react-hook-form.md"),
+      path.join(tmp, ".t-stack-manager", "packs", "default", "libraries", "react-hook-form.md"),
       "utf8",
     );
     expect(raw).not.toMatch(/^version:/m);

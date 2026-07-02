@@ -8,12 +8,12 @@ export interface AddArgs {
   json: boolean;
 }
 
-/** `stacksmith add <source>`: import a whole pack from GitHub or a local dir. */
+/** `t-stack-manager add <source>`: import a whole pack from GitHub or a local dir. */
 export async function runAdd(args: AddArgs): Promise<number> {
   if (!args.source) {
     emitError(args.json, {
       code: "MISSING_SOURCE",
-      message: "Usage: stacksmith add <github:owner/repo[@ref] | url | ./path>",
+      message: "Usage: t-stack-manager add <github:owner/repo[@ref] | url | ./path>",
     });
     return 1;
   }
@@ -49,7 +49,7 @@ export async function runAdd(args: AddArgs): Promise<number> {
     if (skipped.length > 0) {
       process.stderr.write("Pass --force to overwrite skipped (already-present) entries.\n");
     }
-    process.stderr.write(`Remove it later with: stacksmith remove-pack ${pack}\n`);
+    process.stderr.write(`Remove it later with: t-stack-manager remove-pack ${pack}\n`);
   }
   return 0;
 }

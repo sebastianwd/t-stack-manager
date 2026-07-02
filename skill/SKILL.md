@@ -1,29 +1,29 @@
 ---
-name: stacksmith
-description: "Use when the user wants to scaffold a new coding project, reuse a saved project template, save a better-t-stack command as a reusable template, or list available project templates. Wraps better-t-stack with saved configurations. Trigger phrases: 'scaffold a project', 'new project from a template', 'spin up a new app', 'save this as a template', 'stacksmith'."
+name: t-stack-manager
+description: "Use when the user wants to scaffold a new coding project, reuse a saved project template, save a better-t-stack command as a reusable template, or list available project templates. Wraps better-t-stack with saved configurations. Trigger phrases: 'scaffold a project', 'new project from a template', 'spin up a new app', 'save this as a template', 't-stack-manager'."
 argument-hint: "[scaffold|init|templates] [name] [target]"
 user-invocable: true
 allowed-tools:
-  - Bash(npx stacksmith *)
-  - Bash(stacksmith *)
+  - Bash(npx t-stack-manager *)
+  - Bash(t-stack-manager *)
 license: Apache-2.0
 ---
 
-Stacksmith scaffolds new coding projects from saved better-t-stack templates.
+T Stack Manager scaffolds new coding projects from saved better-t-stack templates.
 The CLI does the deterministic work (reading templates, running better-t-stack,
 logging). Your job is to drive the interview and pick the right template.
 
 ## First run (onboarding)
 
-Before the first real task in a session, run `npx stacksmith status --json`. If
+Before the first real task in a session, run `npx t-stack-manager status --json`. If
 `seeded` is `false`, the user's storage is empty (clean install). Ask them once:
 
-> "Stacksmith ships recommended starter templates, libraries, and skills. Install
+> "T Stack Manager ships recommended starter templates, libraries, and skills. Install
 > them now? You can edit or `remove` any of them later, or skip and start clean."
 
-- **Yes** → `npx stacksmith seed --json` (copies the defaults into their storage as
+- **Yes** → `npx t-stack-manager seed --json` (copies the defaults into their storage as
   editable files).
-- **No** → `npx stacksmith seed --skip --json` (marks onboarding done so this is
+- **No** → `npx t-stack-manager seed --skip --json` (marks onboarding done so this is
   not asked again; storage stays empty).
 
 If `seeded` is already `true`, skip this and proceed. Do not seed without asking.
@@ -50,7 +50,7 @@ Look at how the skill was invoked:
    "install <skill>"):** load [reference/skills.md](reference/skills.md) and follow
    it. Skills are agent instruction assets (general like a design system, or tied to
    a library); install is an ordered recipe of `run`/`slash`/`note` steps.
-6. **`templates`:** run `npx stacksmith templates list --json`, then present the
+6. **`templates`:** run `npx t-stack-manager templates list --json`, then present the
    templates to the user in a short readable list (name, description, pinned
    better-t-stack version).
 7. **Anything else / no argument:** treat it as a scaffold request. Ask for the

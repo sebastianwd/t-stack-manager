@@ -26,7 +26,7 @@ async function initRepoWithBaseline(dir: string): Promise<void> {
 }
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-capture-"));
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-capture-"));
 });
 
 afterEach(() => {
@@ -125,7 +125,7 @@ async function repoWithPackage(dir: string, name: string): Promise<void> {
 
 describe("name-agnostic patch apply (the reuse-on-another-name bug)", () => {
   it("applies a patch captured from one project name onto another", async () => {
-    process.env.STACKSMITH_HOME = path.join(tmp, "store");
+    process.env.T_STACK_MANAGER_HOME = path.join(tmp, "store");
     fs.mkdirSync(path.join(tmp, "store", "modifications"), { recursive: true });
 
     // Source project "proj-alpha": add a script to package.json (hunk context holds the name).
@@ -165,13 +165,13 @@ describe("name-agnostic patch apply (the reuse-on-another-name bug)", () => {
     expect(pkg.scripts?.lint).toBe("oxlint");
     expect(pkg.name).toBe("proj-beta"); // name untouched
 
-    delete process.env.STACKSMITH_HOME;
+    delete process.env.T_STACK_MANAGER_HOME;
   });
 });
 
 describe("modifications add --as-template", () => {
   it("refuses to create a bundle that links an unresolved modification", async () => {
-    process.env.STACKSMITH_HOME = path.join(tmp, "store");
+    process.env.T_STACK_MANAGER_HOME = path.join(tmp, "store");
     const tplDir = path.join(tmp, "store", "packs", "default", "templates");
     fs.mkdirSync(tplDir, { recursive: true });
     // base template that already links a modification that doesn't exist
@@ -197,7 +197,7 @@ describe("modifications add --as-template", () => {
     expect(code).toBe(1);
     // the bundle must NOT have been written
     expect(fs.existsSync(path.join(tplDir, "bundle-x.md"))).toBe(false);
-    delete process.env.STACKSMITH_HOME;
+    delete process.env.T_STACK_MANAGER_HOME;
   });
 });
 

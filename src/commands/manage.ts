@@ -21,7 +21,7 @@ export interface SeedArgs {
   json: boolean;
 }
 
-/** `stacksmith seed`: copy bundled defaults into user storage (opt-in batteries). */
+/** `t-stack-manager seed`: copy bundled defaults into user storage (opt-in batteries). */
 export function runSeed(args: SeedArgs): number {
   if (args.store && !isStore(args.store)) {
     emitError(args.json, {
@@ -49,7 +49,7 @@ export function runSeed(args: SeedArgs): number {
   return 0;
 }
 
-/** `stacksmith status`: whether seeded, storage location, and per-store counts. */
+/** `t-stack-manager status`: whether seeded, storage location, and per-store counts. */
 export function runStatus(args: { json: boolean }): number {
   const counts = {
     templates: listTemplates().templates.length,
@@ -71,12 +71,12 @@ export function runStatus(args: { json: boolean }): number {
   return 0;
 }
 
-/** `stacksmith remove <store> <id> [--pack=<name>]`: delete an entry (default pack). */
+/** `t-stack-manager remove <store> <id> [--pack=<name>]`: delete an entry (default pack). */
 export function runRemove(args: { store?: string; id?: string; pack?: string; json: boolean }): number {
   if (!isStore(args.store) || !args.id) {
     emitError(args.json, {
       code: "MISSING_ARGS",
-      message: "Usage: stacksmith remove <store> <id> [--pack=<name>]",
+      message: "Usage: t-stack-manager remove <store> <id> [--pack=<name>]",
       hint: `store is one of: ${STORES.join(", ")}.`,
     });
     return 1;
@@ -88,7 +88,7 @@ export function runRemove(args: { store?: string; id?: string; pack?: string; js
     emitError(args.json, {
       code: "NOT_FOUND",
       message: `No ${args.store} entry "${args.id}" in pack "${pack}" (${file}).`,
-      hint: "Check --pack, or run `stacksmith seed` if it is an unseeded default. To drop a whole imported pack use `remove-pack`.",
+      hint: "Check --pack, or run `t-stack-manager seed` if it is an unseeded default. To drop a whole imported pack use `remove-pack`.",
     });
     return 1;
   }
@@ -105,17 +105,17 @@ export function runRemove(args: { store?: string; id?: string; pack?: string; js
   return 0;
 }
 
-/** `stacksmith remove-pack <name>`: uninstall a whole imported pack. */
+/** `t-stack-manager remove-pack <name>`: uninstall a whole imported pack. */
 export function runRemovePack(args: { name?: string; json: boolean }): number {
   if (!args.name) {
-    emitError(args.json, { code: "MISSING_ARGS", message: "Usage: stacksmith remove-pack <name>" });
+    emitError(args.json, { code: "MISSING_ARGS", message: "Usage: t-stack-manager remove-pack <name>" });
     return 1;
   }
   if (args.name === DEFAULT_PACK) {
     emitError(args.json, {
       code: "CANNOT_REMOVE_DEFAULT",
       message: `Refusing to remove the "${DEFAULT_PACK}" pack (it holds your own entries).`,
-      hint: "Remove individual entries with `stacksmith remove <store> <id>`, or re-seed.",
+      hint: "Remove individual entries with `t-stack-manager remove <store> <id>`, or re-seed.",
     });
     return 1;
   }

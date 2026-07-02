@@ -18,4 +18,4 @@ the installer auto-detects the harness.
 
 After install, initialize with `/impeccable init`, then use `/impeccable <command> <target>`.
 
-Delete this default with `stacksmith remove skills impeccable` if you don't want it.
+Delete this default with `t-stack-manager remove skills impeccable` if you don't want it.

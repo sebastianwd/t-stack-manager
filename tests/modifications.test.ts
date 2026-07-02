@@ -14,13 +14,13 @@ import type { Modification } from "../src/schemas/modification.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-mod-test-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "modifications"), { recursive: true });
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-mod-test-"));
+  fs.mkdirSync(path.join(tmp, ".t-stack-manager", "modifications"), { recursive: true });
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

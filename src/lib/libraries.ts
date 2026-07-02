@@ -40,7 +40,7 @@ export function loadLibrary(id: string, cwd?: string): Result<LoadedLibrary> {
     return fail(
       "LIBRARY_NOT_FOUND",
       `No library named "${id}".`,
-      "Run `stacksmith libraries list` to see the catalogue.",
+      "Run `t-stack-manager libraries list` to see the catalogue.",
     );
   }
 

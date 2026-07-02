@@ -69,7 +69,7 @@ export async function captureProjectDiff(projectDir: string): Promise<Result<Cap
       return fail(
         "CAPTURE_NO_BASELINE",
         `No commits found in ${projectDir}.`,
-        "Stacksmith scaffolds with git enabled; the initial commit is the baseline a modification is diffed against.",
+        "T Stack Manager scaffolds with git enabled; the initial commit is the baseline a modification is diffed against.",
       );
     }
     baseline = root;

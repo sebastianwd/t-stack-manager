@@ -42,7 +42,7 @@ export interface ApplyResult {
 
 /**
  * Apply a saved modification to a target directory. Shared by
- * `stacksmith modifications apply` and the scaffold flow's `default_modifications`.
+ * `t-stack-manager modifications apply` and the scaffold flow's `default_modifications`.
  * Pure-ish: returns a structured result; never emits or exits.
  */
 export async function applyModification(
@@ -73,7 +73,7 @@ export async function applyModification(
     const src = loaded.value.modification.source_project_name;
     const patchText = src ? normalizeProjectName(payload, src, readProjectName(resolved)) : payload;
 
-    const tmp = path.join(os.tmpdir(), `stacksmith-${id}.patch`);
+    const tmp = path.join(os.tmpdir(), `t-stack-manager-${id}.patch`);
     fs.writeFileSync(tmp, patchText.endsWith("\n") ? patchText : `${patchText}\n`, "utf8");
     try {
       await execa("git", ["-C", resolved, "apply", "--whitespace=nowarn", tmp]);
@@ -92,7 +92,7 @@ export async function applyModification(
   }
 
   // kind === "script"
-  const tmp = path.join(os.tmpdir(), `stacksmith-${id}.mjs`);
+  const tmp = path.join(os.tmpdir(), `t-stack-manager-${id}.mjs`);
   fs.writeFileSync(tmp, payload, "utf8");
   try {
     await execa("node", [tmp], { cwd: resolved, stdio: ["inherit", "inherit", "inherit"] });

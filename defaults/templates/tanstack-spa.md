@@ -30,4 +30,4 @@ or the front half of a stack you wire up later.
 - No backend/database/API, add them later or start from `tanstack-fullstack` if you
   want the full stack.
 - `turborepo` makes the output a monorepo (`apps/web`).
-- Delete this default with `stacksmith remove templates tanstack-spa` if you don't want it.
+- Delete this default with `t-stack-manager remove templates tanstack-spa` if you don't want it.

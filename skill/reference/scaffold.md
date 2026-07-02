@@ -5,7 +5,7 @@ Scaffold a new project from a saved template. Follow these steps in order.
 ## 1. List templates
 
 ```bash
-npx stacksmith templates list --json
+npx t-stack-manager templates list --json
 ```
 
 Parse the `templates` array. If it is empty, tell the user there are no
@@ -25,7 +25,7 @@ and the user's request clearly matches it, you may proceed without asking.
 Validate the configuration without writing files:
 
 ```bash
-npx stacksmith scaffold --template=<name> --target=<path> --name=<project-name> --dry-run --json
+npx t-stack-manager scaffold --template=<name> --target=<path> --name=<project-name> --dry-run --json
 ```
 
 If `ok` is false, surface `error.message` and `error.hint`. Do not continue.
@@ -33,7 +33,7 @@ If `ok` is false, surface `error.message` and `error.hint`. Do not continue.
 ## 4. Scaffold for real
 
 ```bash
-npx stacksmith scaffold --template=<name> --target=<path> --name=<project-name> --json
+npx t-stack-manager scaffold --template=<name> --target=<path> --name=<project-name> --json
 ```
 
 This streams better-t-stack progress to the terminal and installs dependencies
@@ -43,7 +43,7 @@ if the template sets `install: true`. On success the JSON includes `target`
 ## 5. Log it
 
 ```bash
-npx stacksmith log --template=<name> --target=<path> --ok --json
+npx t-stack-manager log --template=<name> --target=<path> --ok --json
 ```
 
 ## 6. Report

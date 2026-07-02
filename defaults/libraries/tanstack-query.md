@@ -17,4 +17,4 @@ license: MIT
 The standard for server-state in React: caching, dedup, background refetch,
 mutations. Integrates with oRPC/tRPC clients.
 
-Delete this default with `stacksmith remove libraries tanstack-query` if you don't want it.
+Delete this default with `t-stack-manager remove libraries tanstack-query` if you don't want it.

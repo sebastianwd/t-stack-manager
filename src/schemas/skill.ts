@@ -3,7 +3,7 @@ import { z } from "zod";
 /**
  * One install step. The skill ecosystem is not standardized, so install is an
  * ordered recipe rather than a classified kind:
- * - `run`: a shell command the Stacksmith CLI can execute (e.g. "npx impeccable install")
+ * - `run`: a shell command the T Stack Manager CLI can execute (e.g. "npx impeccable install")
  * - `slash`: a harness command only the agent can run (e.g. "/plugin install x@y")
  * - `note`: a manual instruction
  * Order is the array order, so prerequisites are just earlier steps.

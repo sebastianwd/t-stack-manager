@@ -8,13 +8,13 @@ import type { Skill } from "../src/schemas/skill.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-skill-test-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "skills"), { recursive: true });
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-skill-test-"));
+  fs.mkdirSync(path.join(tmp, ".t-stack-manager", "skills"), { recursive: true });
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

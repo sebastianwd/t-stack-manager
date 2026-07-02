@@ -19,4 +19,4 @@ need; nothing ships to runtime.
 
 Source: https://github.com/sindresorhus/type-fest
 
-Delete this default with `stacksmith remove libraries type-fest` if you don't want it.
+Delete this default with `t-stack-manager remove libraries type-fest` if you don't want it.

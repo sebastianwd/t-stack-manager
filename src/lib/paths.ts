@@ -13,6 +13,11 @@ export function packageRoot(): string {
   return path.resolve(here, "..", "..");
 }
 
+/** The built Claude Code skill bundle that ships in the package (for `t-stack-manager install`). */
+export function skillBundleDir(): string {
+  return path.join(packageRoot(), "dist", "claude-code", ".claude", "skills", "t-stack-manager");
+}
+
 /** Templates that ship inside the package (the seed defaults). */
 export function bundledTemplatesDir(): string {
   return path.join(packageRoot(), "defaults", "templates");
@@ -20,19 +25,19 @@ export function bundledTemplatesDir(): string {
 
 /**
  * User/project storage root. Resolution order:
- *   1. STACKSMITH_HOME env var (absolute or relative to cwd)
- *   2. nearest ./.stacksmith walking up from cwd (project-scoped)
- *   3. ~/.stacksmith (user-scoped default)
+ *   1. T_STACK_MANAGER_HOME env var (absolute or relative to cwd)
+ *   2. nearest ./.t-stack-manager walking up from cwd (project-scoped)
+ *   3. ~/.t-stack-manager (user-scoped default)
  */
 export function resolveStorageDir(cwd: string = process.cwd()): string {
-  const envHome = process.env.STACKSMITH_HOME;
+  const envHome = process.env.T_STACK_MANAGER_HOME;
   if (envHome && envHome.trim().length > 0) {
     return path.resolve(cwd, envHome);
   }
 
   let dir = path.resolve(cwd);
   for (;;) {
-    const candidate = path.join(dir, ".stacksmith");
+    const candidate = path.join(dir, ".t-stack-manager");
     if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) {
       return candidate;
     }
@@ -41,7 +46,7 @@ export function resolveStorageDir(cwd: string = process.cwd()): string {
     dir = parent;
   }
 
-  return path.join(os.homedir(), ".stacksmith");
+  return path.join(os.homedir(), ".t-stack-manager");
 }
 
 // The user's own entries live in the built-in "default" pack.

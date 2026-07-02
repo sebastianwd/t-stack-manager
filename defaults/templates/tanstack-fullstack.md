@@ -45,4 +45,4 @@ addons and a turborepo workspace, with a `todo` example to show the wiring.
 - `turborepo` makes the output a monorepo.
 - Pinned to better-t-stack 3.30.3. Bump `better-t-stack-version` and re-validate
   the flags when you upgrade.
-- Delete this default with `stacksmith remove templates tanstack-fullstack` if you don't want it.
+- Delete this default with `t-stack-manager remove templates tanstack-fullstack` if you don't want it.

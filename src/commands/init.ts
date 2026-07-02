@@ -13,7 +13,7 @@ export interface InitArgs {
 }
 
 /**
- * `stacksmith init` - author a template from a pasted better-t-stack command.
+ * `t-stack-manager init` - author a template from a pasted better-t-stack command.
  *
  * Parses the command (or its create-json form), validates the flags, and writes
  * a template markdown file to user storage. Does NOT scaffold; `scaffold` runs it.
@@ -52,7 +52,7 @@ export function runInit(args: InitArgs): number {
 
   const body = `# ${args.name}
 
-Authored by \`stacksmith init\` from a pasted better-t-stack command. Add notes
+Authored by \`t-stack-manager init\` from a pasted better-t-stack command. Add notes
 here: why this combo, gotchas, deploy steps.`;
 
   const saved = saveTemplate(template, body, { force: args.force });

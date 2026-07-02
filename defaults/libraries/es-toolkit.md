@@ -16,4 +16,4 @@ license: MIT
 
 Faster and smaller than lodash, TypeScript-first, tree-shakable.
 
-Delete this default with `stacksmith remove libraries es-toolkit` if you don't want it.
+Delete this default with `t-stack-manager remove libraries es-toolkit` if you don't want it.

@@ -9,12 +9,12 @@ import { listTemplates } from "../src/lib/storage.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-add-"));
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-add-"));
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

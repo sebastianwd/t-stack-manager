@@ -41,7 +41,7 @@ export function loadSkill(id: string, cwd?: string): Result<LoadedSkill> {
     return fail(
       "SKILL_NOT_FOUND",
       `No skill named "${id}".`,
-      "Run `stacksmith skills list` to see what is available.",
+      "Run `t-stack-manager skills list` to see what is available.",
     );
   }
 

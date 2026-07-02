@@ -3,7 +3,7 @@ import { fail, ok, type Result } from "./result.js";
 
 /**
  * Parse a better-t-stack command (or its `create-json --input` form) into
- * validated template flags. This is the heart of `stacksmith init`: rather than
+ * validated template flags. This is the heart of `t-stack-manager init`: rather than
  * rebuilding better-t-stack's option wizard, we consume the canonical command it
  * (or better-t-stack.dev) already produces.
  *
@@ -15,7 +15,7 @@ export interface ParsedCommand {
   projectName?: string;
   /** Version pinned via `@<version>` on the package spec, if any (never "latest"/"next"). */
   version?: string;
-  /** Validated better-t-stack create input, minus Stacksmith-owned fields. */
+  /** Validated better-t-stack create input, minus T Stack Manager-owned fields. */
   flags: TemplateFlags;
 }
 
@@ -35,7 +35,7 @@ const BOOLEAN_FLAGS = new Set([
 /** Flags that accumulate multiple values (`--addons turborepo husky`). */
 const ARRAY_FLAGS = new Set(["frontend", "addons", "examples"]);
 
-/** Fields Stacksmith owns at scaffold time; never persisted in a template. */
+/** Fields T Stack Manager owns at scaffold time; never persisted in a template. */
 const OWNED_FIELDS = ["projectName", "yes", "yolo", "dryRun"];
 
 const toCamel = (s: string): string => s.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
@@ -171,7 +171,7 @@ function validate(rawFlags: Record<string, unknown>): Result<TemplateFlags> {
     return fail(
       "PARSE_INVALID_FLAGS",
       `Parsed flags failed better-t-stack validation:\n${issues}`,
-      "Check the command for typos, or that it targets the better-t-stack version Stacksmith was built against.",
+      "Check the command for typos, or that it targets the better-t-stack version T Stack Manager was built against.",
     );
   }
   return ok(parsed.data);

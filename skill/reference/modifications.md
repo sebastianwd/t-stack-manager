@@ -9,7 +9,7 @@ the scaffolded project is the dish.
 ## List
 
 ```bash
-npx stacksmith modifications list --json
+npx t-stack-manager modifications list --json
 ```
 
 Present `id`, `kind`, and `description`. `kind` is one of `patch` (a captured
@@ -25,7 +25,7 @@ The user scaffolded a project, edited it by hand, and wants to keep those edits.
 2. Run:
 
 ```bash
-npx stacksmith modifications add --id=<id> --from-project=<path> --template=<base-template> --description="<text>" --json
+npx t-stack-manager modifications add --id=<id> --from-project=<path> --template=<base-template> --description="<text>" --json
 ```
 
 This diffs the working tree against the project's initial git commit (the pristine
@@ -51,7 +51,7 @@ re-running with `--force`.
 ## Apply a saved modification to a project
 
 ```bash
-npx stacksmith modifications apply --id=<id> --target=<path> --json
+npx t-stack-manager modifications apply --id=<id> --target=<path> --json
 ```
 
 - `kind: patch` → applied with `git apply`. **If it does not apply cleanly**

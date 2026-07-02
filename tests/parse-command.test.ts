@@ -20,7 +20,7 @@ describe("parseBetterTCommand - flag form", () => {
     expect(result.value.flags.git).toBe(true);
   });
 
-  it("does not persist Stacksmith-owned fields", () => {
+  it("does not persist T Stack Manager-owned fields", () => {
     const cmd = "npx create-better-t-stack@3.30.3 my-app --yes --backend hono";
     const result = parseBetterTCommand(cmd);
     expect(result.ok).toBe(true);

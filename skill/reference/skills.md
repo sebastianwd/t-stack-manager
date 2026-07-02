@@ -14,7 +14,7 @@ not a fixed kind:
 - `note` — a manual instruction.
 
 **Runner placeholders (portability):** in `run`/`note` steps, use `{{dlx}}` for the
-ephemeral package runner and `{{pm}}` for the package manager. Stacksmith
+ephemeral package runner and `{{pm}}` for the package manager. T Stack Manager
 substitutes them for the target project's manager at plan/install time:
 `{{dlx}}` -> `npx` | `pnpm dlx` | `bunx`; `{{pm}}` -> `npm` | `pnpm` | `bun`. So
 store `{{dlx}} @tanstack/intent@latest install`, not a hardcoded
@@ -28,7 +28,7 @@ natively, a `bts_source`.
 ## List / find skills
 
 ```bash
-npx stacksmith skills list [--category=<cat>] --json
+npx t-stack-manager skills list [--category=<cat>] --json
 ```
 
 ## Save a skill to the stack
@@ -37,17 +37,17 @@ npx stacksmith skills list [--category=<cat>] --json
 
 ```bash
 # a CLI-installed skill
-npx stacksmith skills add --id=impeccable --category=design \
+npx t-stack-manager skills add --id=impeccable --category=design \
   --url="https://impeccable.style" \
   --install='[{"run":"npx impeccable install"}]' --json
 
 # a plugin skill that needs a marketplace added first (order preserved)
-npx stacksmith skills add --id=orpc-guide --category=framework \
+npx t-stack-manager skills add --id=orpc-guide --category=framework \
   --url="https://github.com/vcode-sh/vibe-tools" \
   --install='[{"slash":"/plugin marketplace add vcode-sh/vibe-tools"},{"slash":"/plugin install orpc-guide@vibe-tools"}]' --json
 
 # a better-t-stack native skill (no steps; installed at scaffold via flags)
-npx stacksmith skills add --id=shadcn --category=framework --bts-source="shadcn/ui" --json
+npx t-stack-manager skills add --id=shadcn --category=framework --bts-source="shadcn/ui" --json
 ```
 
 If the id exists, the CLI returns `SKILL_EXISTS`; confirm before `--force`.
@@ -56,10 +56,10 @@ If the id exists, the CLI returns `SKILL_EXISTS`; confirm before `--force`.
 
 ```bash
 # 1. Plan first (does NOT run shell steps): shows the ordered recipe
-npx stacksmith skills install --id=<id> [--target=<path>] --json
+npx t-stack-manager skills install --id=<id> [--target=<path>] --json
 
 # 2. After showing the user the steps and getting the OK, execute the run steps:
-npx stacksmith skills install --id=<id> [--target=<path>] --yes --json
+npx t-stack-manager skills install --id=<id> [--target=<path>] --yes --json
 ```
 
 The result has a per-step `status` and an overall `status`:

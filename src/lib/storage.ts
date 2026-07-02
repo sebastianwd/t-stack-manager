@@ -25,7 +25,7 @@ export function parseFrontmatter(raw: string): ParsedMarkdown | null {
 
 /**
  * Discover template files across all installed packs (default pack authoritative).
- * Bundled defaults are a seed source (`stacksmith seed`), not merged at runtime.
+ * Bundled defaults are a seed source (`t-stack-manager seed`), not merged at runtime.
  */
 function discoverTemplateFiles(
   cwd?: string,
@@ -45,7 +45,7 @@ export function loadTemplate(name: string, cwd?: string): Result<LoadedTemplate>
     return fail(
       "TEMPLATE_NOT_FOUND",
       `No template named "${name}".`,
-      "Run `stacksmith templates list` to see available templates.",
+      "Run `t-stack-manager templates list` to see available templates.",
     );
   }
 
@@ -73,7 +73,7 @@ export function loadTemplate(name: string, cwd?: string): Result<LoadedTemplate>
     return fail(
       "TEMPLATE_INVALID",
       `Template ${entry.file} failed validation:\n${issues}`,
-      "The flags may target a different better-t-stack version than the one Stacksmith was built against.",
+      "The flags may target a different better-t-stack version than the one T Stack Manager was built against.",
     );
   }
 

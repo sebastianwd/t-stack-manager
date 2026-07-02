@@ -1,6 +1,6 @@
 # init
 
-Save a better-t-stack command as a reusable Stacksmith template. Use this when
+Save a better-t-stack command as a reusable T Stack Manager template. Use this when
 the user already has a command (built on better-t-stack.dev, copied from shell
 history, or the `reproducible_command` from a previous scaffold) and wants to
 store that stack so future scaffolds can reuse it.
@@ -18,7 +18,7 @@ the saved template afterwards, follow `reference/scaffold.md`.
   obvious. This becomes the filename and the `name` in frontmatter.
 - **Description (optional):** a one-line summary.
 
-The project name inside the pasted command is ignored (Stacksmith sets it at
+The project name inside the pasted command is ignored (T Stack Manager sets it at
 scaffold time), so it does not matter what the user named the example project.
 
 ## 2. Run init
@@ -27,7 +27,7 @@ Pass the command with the `=` form and quote it so the shell keeps it as one
 argument:
 
 ```bash
-npx stacksmith init --name=<name> --from-command="<full command>" --description="<text>" --json
+npx t-stack-manager init --name=<name> --from-command="<full command>" --description="<text>" --json
 ```
 
 If a template with that name already exists, the CLI fails with
@@ -40,7 +40,7 @@ before re-running with `--force`.
   (`command` if the pin came from `@<version>`, `default` if it fell back), and
   the parsed `flags`. Tell the user where it was saved and which version it pinned.
 - If `version_source` is `default`, mention that the command had no explicit
-  `@<version>` so it pinned the Stacksmith default; offer to re-run with a pinned
+  `@<version>` so it pinned the T Stack Manager default; offer to re-run with a pinned
   command if they care about reproducibility.
 - On `PARSE_INVALID_FLAGS`, surface `error.message` (it lists the offending
   flags) and `error.hint`. The command likely has a typo or targets a different

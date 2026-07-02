@@ -18,4 +18,4 @@ ship with TanStack libraries and loads the matching `SKILL.md` on demand. Link i
 as a `default_skill` on TanStack templates. Optionally enable edit-gate hooks with
 `{{dlx}} @tanstack/intent@latest hooks install`.
 
-Delete this default with `stacksmith remove skills tanstack-intent` if you don't want it.
+Delete this default with `t-stack-manager remove skills tanstack-intent` if you don't want it.

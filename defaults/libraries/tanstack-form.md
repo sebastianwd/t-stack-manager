@@ -20,4 +20,4 @@ Standard Schema validation (zod/valibot), framework-agnostic core.
 The stack-consistent forms pick if you're already on TanStack; see `react-hook-form`
 for the more popular alternative.
 
-Delete this default with `stacksmith remove libraries tanstack-form` if you don't want it.
+Delete this default with `t-stack-manager remove libraries tanstack-form` if you don't want it.

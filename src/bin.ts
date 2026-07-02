@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { runAdd } from "./commands/add.js";
 import { runInit } from "./commands/init.js";
+import { runInstall } from "./commands/install.js";
 import { runLibraries } from "./commands/libraries.js";
 import { runLog } from "./commands/log.js";
 import { runModifications } from "./commands/modifications.js";
@@ -48,26 +49,27 @@ function str(value: string | boolean | undefined): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
-const USAGE = `stacksmith - scaffold projects from saved better-t-stack templates
+const USAGE = `t-stack-manager - scaffold projects from saved better-t-stack templates
 
 Usage:
-  stacksmith templates list [--json]
-  stacksmith init --name=<name> --from-command=<cmd> [--description=<text>] [--force] [--json]
-  stacksmith scaffold --template=<name> --target=<path> [--name=<project>] [--dry-run] [--json]
-  stacksmith modifications list [--json]
-  stacksmith modifications add --id=<id> --from-project=<path> [--template=<id>] [--as-template=<name>] [--description=<text>] [--force] [--json]
-  stacksmith modifications apply --id=<id> --target=<path> [--json]
-  stacksmith libraries list [--category=<cat>] [--json]
-  stacksmith libraries add --id=<id> --category=<cat> --package=<pkg> [--description=<text>] [--use-cases=<csv>] [--alternatives=<csv>] [--when-to-use=<text>] [--gotchas=<text>] [--peer-deps=<csv>] [--skill-ref=<id>] [--license=<id>] [--note=<text>] [--force] [--json]
-  stacksmith skills list [--category=<cat>] [--json]
-  stacksmith skills add --id=<id> [--install=<json-steps>] [--url=<url>] [--bts-source=<id>] [--agents=<csv>] [--category=<cat>] [--description=<text>] [--license=<id>] [--note=<text>] [--force] [--json]
-  stacksmith skills install --id=<id> [--target=<path>] [--package-manager=<pm>] [--yes] [--json]
-  stacksmith status [--json]
-  stacksmith seed [--store=<templates|libraries|modifications|skills>] [--force] [--skip] [--json]
-  stacksmith add <github:owner/repo[@ref] | url | ./path> [--name=<pack>] [--force] [--json]
-  stacksmith remove <templates|libraries|modifications|skills> <id> [--pack=<name>] [--json]
-  stacksmith remove-pack <name> [--json]
-  stacksmith log --template=<name> --target=<path> [--version=<v>] [--ok] [--json]
+  t-stack-manager install [--project[=<path>]] [--json]
+  t-stack-manager templates list [--json]
+  t-stack-manager init --name=<name> --from-command=<cmd> [--description=<text>] [--force] [--json]
+  t-stack-manager scaffold --template=<name> --target=<path> [--name=<project>] [--dry-run] [--json]
+  t-stack-manager modifications list [--json]
+  t-stack-manager modifications add --id=<id> --from-project=<path> [--template=<id>] [--as-template=<name>] [--description=<text>] [--force] [--json]
+  t-stack-manager modifications apply --id=<id> --target=<path> [--json]
+  t-stack-manager libraries list [--category=<cat>] [--json]
+  t-stack-manager libraries add --id=<id> --category=<cat> --package=<pkg> [--description=<text>] [--use-cases=<csv>] [--alternatives=<csv>] [--when-to-use=<text>] [--gotchas=<text>] [--peer-deps=<csv>] [--skill-ref=<id>] [--license=<id>] [--note=<text>] [--force] [--json]
+  t-stack-manager skills list [--category=<cat>] [--json]
+  t-stack-manager skills add --id=<id> [--install=<json-steps>] [--url=<url>] [--bts-source=<id>] [--agents=<csv>] [--category=<cat>] [--description=<text>] [--license=<id>] [--note=<text>] [--force] [--json]
+  t-stack-manager skills install --id=<id> [--target=<path>] [--package-manager=<pm>] [--yes] [--json]
+  t-stack-manager status [--json]
+  t-stack-manager seed [--store=<templates|libraries|modifications|skills>] [--force] [--skip] [--json]
+  t-stack-manager add <github:owner/repo[@ref] | url | ./path> [--name=<pack>] [--force] [--json]
+  t-stack-manager remove <templates|libraries|modifications|skills> <id> [--pack=<name>] [--json]
+  t-stack-manager remove-pack <name> [--json]
+  t-stack-manager log --template=<name> --target=<path> [--version=<v>] [--ok] [--json]
 `;
 
 async function main(): Promise<number> {
@@ -81,6 +83,11 @@ async function main(): Promise<number> {
   }
 
   switch (command) {
+    case "install": {
+      const proj = flags.project;
+      return runInstall({ project: proj === true ? "." : str(proj), json });
+    }
+
     case "templates": {
       const sub = positionals[1] ?? "list";
       if (sub !== "list") {

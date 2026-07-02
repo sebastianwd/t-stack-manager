@@ -8,19 +8,19 @@ import type { Template } from "../src/schemas/template.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-test-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "packs", "default", "templates"), { recursive: true });
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-test-"));
+  fs.mkdirSync(path.join(tmp, ".t-stack-manager", "packs", "default", "templates"), { recursive: true });
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 
 function writeTemplate(name: string, contents: string): void {
   fs.writeFileSync(
-    path.join(tmp, ".stacksmith", "packs", "default", "templates", `${name}.md`),
+    path.join(tmp, ".t-stack-manager", "packs", "default", "templates", `${name}.md`),
     contents,
     "utf8",
   );

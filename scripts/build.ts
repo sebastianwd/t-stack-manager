@@ -4,16 +4,16 @@
  *
  * Phase 1: Claude Code only. Cursor output is added in Phase 3.
  *
- * Note: the `stacksmith` CLI and its bundled templates ship via the npm
+ * Note: the `t-stack-manager` CLI and its bundled templates ship via the npm
  * package. The skill bundle only needs SKILL.md + reference/; it calls
- * `npx stacksmith`. The defaults are copied in for reference/visibility.
+ * `npx t-stack-manager`. The defaults are copied in for reference/visibility.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const claudeSkillDir = path.join(root, "dist", "claude-code", ".claude", "skills", "stacksmith");
+const claudeSkillDir = path.join(root, "dist", "claude-code", ".claude", "skills", "t-stack-manager");
 
 function copyDir(src: string, dest: string): void {
   fs.mkdirSync(dest, { recursive: true });

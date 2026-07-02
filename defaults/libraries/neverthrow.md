@@ -19,4 +19,4 @@ so errors are values you handle, not exceptions you hope to catch.
 
 Source: https://github.com/supermacro/neverthrow
 
-Delete this default with `stacksmith remove libraries neverthrow` if you don't want it.
+Delete this default with `t-stack-manager remove libraries neverthrow` if you don't want it.

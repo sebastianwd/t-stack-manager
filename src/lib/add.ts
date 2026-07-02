@@ -35,9 +35,9 @@ type Source =
   | { kind: "github"; owner: string; repo: string; ref: string }
   | { kind: "local"; dir: string };
 
-/** A store markdown file at the pack root or under `.stacksmith/` (not nested elsewhere). */
+/** A store markdown file at the pack root or under `.t-stack-manager/` (not nested elsewhere). */
 function storeOfPath(p: string): Store | null {
-  const m = p.match(/^(?:\.stacksmith\/)?(templates|libraries|modifications|skills)\/[^/]+\.md$/);
+  const m = p.match(/^(?:\.t-stack-manager\/)?(templates|libraries|modifications|skills)\/[^/]+\.md$/);
   return m ? (m[1] as Store) : null;
 }
 
@@ -65,7 +65,7 @@ export function parseSource(source: string): Source | null {
 
 function localPackFiles(dir: string): PackFile[] {
   const files: PackFile[] = [];
-  const bases = [dir, path.join(dir, ".stacksmith")];
+  const bases = [dir, path.join(dir, ".t-stack-manager")];
   for (const base of bases) {
     for (const store of ["templates", "libraries", "modifications", "skills"] as const) {
       const sdir = path.join(base, store);
@@ -84,7 +84,7 @@ async function githubPackFiles(owner: string, repo: string, ref: string): Promis
   let res: Response;
   try {
     res = await fetch(url, {
-      headers: { "User-Agent": "stacksmith", Accept: "application/vnd.github+json" },
+      headers: { "User-Agent": "t-stack-manager", Accept: "application/vnd.github+json" },
     });
   } catch (cause) {
     return fail("ADD_FETCH_FAILED", `Could not reach GitHub for ${owner}/${repo}: ${String(cause)}`);
@@ -109,7 +109,7 @@ async function githubPackFiles(owner: string, repo: string, ref: string): Promis
       store,
       filename,
       fetch: async () => {
-        const r = await fetch(raw, { headers: { "User-Agent": "stacksmith" } });
+        const r = await fetch(raw, { headers: { "User-Agent": "t-stack-manager" } });
         if (!r.ok) throw new Error(`HTTP ${r.status} for ${raw}`);
         return r.text();
       },
@@ -186,7 +186,7 @@ export async function addPack(
     return fail(
       "ADD_EMPTY",
       `No pack entries found at "${source}".`,
-      "A pack has templates/libraries/modifications/skills dirs at its root or under .stacksmith/.",
+      "A pack has templates/libraries/modifications/skills dirs at its root or under .t-stack-manager/.",
     );
   }
 

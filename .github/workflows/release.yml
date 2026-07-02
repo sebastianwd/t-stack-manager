@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write # changesets opens the "Version Packages" PR and pushes tags
+  pull-requests: write # ...and opens/updates that PR
+  id-token: write # npm trusted publishing (OIDC) + automatic provenance, no token
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing (OIDC) needs a recent npm on PATH (>= 11.5.1).
+      - run: npm install -g npm@latest
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm typecheck && pnpm lint && pnpm test
+
+      # Opens/updates a "Version Packages" PR when changesets are pending;
+      # publishes to npm when that PR merges. Auth is OIDC (no NPM_TOKEN):
+      # requires a Trusted Publisher configured on npmjs.com for this repo + workflow.
+      - uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

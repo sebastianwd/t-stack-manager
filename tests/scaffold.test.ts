@@ -11,13 +11,13 @@ import { runScaffold } from "../src/commands/scaffold.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-scaffold-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "packs", "default", "templates"), { recursive: true });
-  process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-scaffold-"));
+  fs.mkdirSync(path.join(tmp, ".t-stack-manager", "packs", "default", "templates"), { recursive: true });
+  process.env.T_STACK_MANAGER_HOME = path.join(tmp, ".t-stack-manager");
 });
 
 afterEach(() => {
-  delete process.env.STACKSMITH_HOME;
+  delete process.env.T_STACK_MANAGER_HOME;
   fs.rmSync(tmp, { recursive: true, force: true });
   vi.restoreAllMocks();
 });
@@ -38,7 +38,7 @@ flags:
 `;
 
 function templatesDir(): string {
-  return path.join(tmp, ".stacksmith", "packs", "default", "templates");
+  return path.join(tmp, ".t-stack-manager", "packs", "default", "templates");
 }
 
 function writeTemplate(): void {

@@ -7,7 +7,7 @@ import { detectPackageManager, substituteRunner } from "../src/lib/runner.js";
 let tmp: string;
 
 beforeEach(() => {
-  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-runner-"));
+  tmp = fs.mkdtempSync(path.join(os.tmpdir(), "t-stack-manager-runner-"));
 });
 
 afterEach(() => {

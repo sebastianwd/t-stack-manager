@@ -16,4 +16,4 @@ license: MIT
 
 A tiny hook-based store. No providers, no boilerplate.
 
-Delete this default with `stacksmith remove libraries zustand` if you don't want it.
+Delete this default with `t-stack-manager remove libraries zustand` if you don't want it.

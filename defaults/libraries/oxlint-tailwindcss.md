@@ -33,4 +33,4 @@ Install as a dev dependency and wire it into `.oxlintrc.json`:
 
 Source: https://github.com/sergioazoc/oxlint-tailwindcss
 
-Delete this default with `stacksmith remove libraries oxlint-tailwindcss` if you don't want it.
+Delete this default with `t-stack-manager remove libraries oxlint-tailwindcss` if you don't want it.

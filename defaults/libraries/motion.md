@@ -19,4 +19,4 @@ Motion. Import the React API from `motion/react`.
 
 Source: https://github.com/motiondivision/motion
 
-Delete this default with `stacksmith remove libraries motion` if you don't want it.
+Delete this default with `t-stack-manager remove libraries motion` if you don't want it.

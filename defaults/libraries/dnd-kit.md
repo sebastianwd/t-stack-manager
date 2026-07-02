@@ -19,4 +19,4 @@ context. Add `@dnd-kit/sortable` for sortable lists.
 
 Source: https://github.com/clauderic/dnd-kit
 
-Delete this default with `stacksmith remove libraries dnd-kit` if you don't want it.
+Delete this default with `t-stack-manager remove libraries dnd-kit` if you don't want it.

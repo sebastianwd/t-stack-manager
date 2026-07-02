@@ -72,7 +72,7 @@ export class SpawnBTStackAdapter implements BTStackAdapter {
       );
     }
 
-    // Stacksmith owns these fields; never let a template smuggle them in.
+    // T Stack Manager owns these fields; never let a template smuggle them in.
     const input: Record<string, unknown> = { ...opts.flags };
     delete input.yes;
     delete input.yolo;

@@ -6,7 +6,7 @@ import { z } from "zod";
  *
  * We validate against the whole `CreateInputSchema` (it can't be `.omit()`-ed
  * because it carries refinements, and all of its fields are optional anyway).
- * Fields that Stacksmith controls at scaffold time (projectName, dryRun, yes,
+ * Fields that T Stack Manager controls at scaffold time (projectName, dryRun, yes,
  * yolo) are sanitized out by the adapter before spawning.
  *
  * Because the schema is strict, a template referencing a renamed/removed flag

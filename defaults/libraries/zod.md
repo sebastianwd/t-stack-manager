@@ -17,4 +17,4 @@ license: MIT
 The de-facto standard for runtime validation in TypeScript. Define a schema once,
 get validation and a static type from it.
 
-Delete this default with `stacksmith remove libraries zod` if you don't want it.
+Delete this default with `t-stack-manager remove libraries zod` if you don't want it.

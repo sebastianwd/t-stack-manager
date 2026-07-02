@@ -18,4 +18,4 @@ Activates when a `components.json` is present, so use it on a shadcn/ui project.
 
 Also installable by better-t-stack via its skills addon (`bts_source: shadcn/ui`).
 
-Delete this default with `stacksmith remove skills shadcn` if you don't want it.
+Delete this default with `t-stack-manager remove skills shadcn` if you don't want it.

@@ -41,7 +41,7 @@ export function loadModification(id: string, cwd?: string): Result<LoadedModific
     return fail(
       "MODIFICATION_NOT_FOUND",
       `No modification named "${id}".`,
-      "Run `stacksmith modifications list` to see what is available.",
+      "Run `t-stack-manager modifications list` to see what is available.",
     );
   }
 

@@ -18,4 +18,4 @@ when a matching task shows up.
 
 Also installable by better-t-stack via its skills addon (`bts_source: vercel-labs/agent-skills`).
 
-Delete this default with `stacksmith remove skills vercel-agent-skills` if you don't want it.
+Delete this default with `t-stack-manager remove skills vercel-agent-skills` if you don't want it.

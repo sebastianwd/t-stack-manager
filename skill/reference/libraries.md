@@ -9,9 +9,9 @@ is judgment, not a CLI command.
 1. Get the catalogue, filtered by category when the ask maps to one:
 
 ```bash
-npx stacksmith libraries list --category=<cat> --json
+npx t-stack-manager libraries list --category=<cat> --json
 # or the whole catalogue:
-npx stacksmith libraries list --json
+npx t-stack-manager libraries list --json
 ```
 
 2. Reason over the entries (`description`, `use_cases`, `when_to_use`,
@@ -27,7 +27,7 @@ If the catalogue is empty or has nothing fitting, say so and offer to add an ent
 ## Save a library to the stack ("remember this lib", "add X to my stack")
 
 ```bash
-npx stacksmith libraries add \
+npx t-stack-manager libraries add \
   --id=<id> --category=<cat> --package=<pkg> \
   --description="<one line>" \
   --use-cases="a,b" \
