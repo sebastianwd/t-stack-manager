@@ -28,7 +28,7 @@ const patchMod: Modification = {
   id: "add-readme",
   description: "drop in a README",
   kind: "patch",
-  applies_to: ["tanstack-cf-orpc"],
+  applies_to: ["tanstack-fullstack"],
   idempotent: false,
   source_project_name: "",
   version: "1",
@@ -44,7 +44,7 @@ describe("saveModification + loadModification", () => {
     expect(loaded.ok).toBe(true);
     if (loaded.ok) {
       expect(loaded.value.modification.kind).toBe("patch");
-      expect(loaded.value.modification.applies_to).toEqual(["tanstack-cf-orpc"]);
+      expect(loaded.value.modification.applies_to).toEqual(["tanstack-fullstack"]);
       expect(loaded.value.body).toContain("```diff");
     }
   });

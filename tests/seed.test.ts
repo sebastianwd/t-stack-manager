@@ -32,7 +32,7 @@ describe("seedDefaults", () => {
     expect(isSeeded()).toBe(true);
 
     const templates = listTemplates().templates.map((t) => t.name);
-    expect(templates).toContain("tanstack-cf-orpc");
+    expect(templates).toContain("tanstack-fullstack");
     const libraries = listLibraries().libraries.map((l) => l.id);
     expect(libraries).toContain("zod");
     // seeded entries are now user-owned files

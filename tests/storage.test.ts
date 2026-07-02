@@ -86,7 +86,7 @@ describe("listTemplates", () => {
     const names = templates.map((t) => t.name);
     expect(names).toContain("my-template");
     // bundled defaults are NOT merged at runtime; a clean install shows nothing until `seed`
-    expect(names).not.toContain("tanstack-cf-orpc");
+    expect(names).not.toContain("tanstack-fullstack");
   });
 
   it("reports invalid templates in errors, not templates", () => {

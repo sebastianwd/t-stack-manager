@@ -14,7 +14,7 @@ the saved template afterwards, follow `reference/scaffold.md`.
   work: the flag form (`npx create-better-t-stack@3.30.3 my-app --frontend
   tanstack-start --backend hono ...`) and the agent JSON form (`... create-json
   --input '{...}'`).
-- **Template name:** a short kebab-case id (e.g. `tanstack-cf-orpc`). Ask if not
+- **Template name:** a short kebab-case id (e.g. `tanstack-fullstack`). Ask if not
   obvious. This becomes the filename and the `name` in frontmatter.
 - **Description (optional):** a one-line summary.
 
