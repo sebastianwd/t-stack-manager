@@ -9,7 +9,7 @@ let tmp: string;
 
 beforeEach(() => {
   tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-test-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "templates"), { recursive: true });
+  fs.mkdirSync(path.join(tmp, ".stacksmith", "packs", "default", "templates"), { recursive: true });
   process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
 });
 
@@ -19,7 +19,11 @@ afterEach(() => {
 });
 
 function writeTemplate(name: string, contents: string): void {
-  fs.writeFileSync(path.join(tmp, ".stacksmith", "templates", `${name}.md`), contents, "utf8");
+  fs.writeFileSync(
+    path.join(tmp, ".stacksmith", "packs", "default", "templates", `${name}.md`),
+    contents,
+    "utf8",
+  );
 }
 
 const VALID = `---
@@ -61,7 +65,7 @@ describe("loadTemplate", () => {
     if (result.ok) {
       expect(result.value.template.name).toBe("my-template");
       expect(result.value.template.flags.backend).toBe("hono");
-      expect(result.value.source).toBe("user");
+      expect(result.value.source).toBe("default");
     }
   });
 

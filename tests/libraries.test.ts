@@ -53,7 +53,7 @@ describe("saveLibrary + loadLibrary", () => {
   it("does not persist a version field (resolved at install time)", () => {
     saveLibrary(lib({}), "body");
     const raw = fs.readFileSync(
-      path.join(tmp, ".stacksmith", "libraries", "react-hook-form.md"),
+      path.join(tmp, ".stacksmith", "packs", "default", "libraries", "react-hook-form.md"),
       "utf8",
     );
     expect(raw).not.toMatch(/^version:/m);
@@ -81,9 +81,9 @@ describe("listLibraries", () => {
     saveLibrary(lib({ id: "react-hook-form", category: "forms" }), "b");
     saveLibrary(lib({ id: "zod", category: "validation", package: "zod" }), "b");
 
-    // filter to user source: the package also ships bundled default libraries
+    // entries authored via saveLibrary land in the "default" pack
     const all = listLibraries();
-    const userIds = all.libraries.filter((l) => l.source === "user").map((l) => l.id).toSorted();
+    const userIds = all.libraries.filter((l) => l.source === "default").map((l) => l.id).toSorted();
     expect(userIds).toEqual(["react-hook-form", "zod"]);
 
     const forms = listLibraries({ category: "forms" });

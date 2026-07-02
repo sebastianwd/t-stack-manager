@@ -12,7 +12,7 @@ let tmp: string;
 
 beforeEach(() => {
   tmp = fs.mkdtempSync(path.join(os.tmpdir(), "stacksmith-scaffold-"));
-  fs.mkdirSync(path.join(tmp, ".stacksmith", "templates"), { recursive: true });
+  fs.mkdirSync(path.join(tmp, ".stacksmith", "packs", "default", "templates"), { recursive: true });
   process.env.STACKSMITH_HOME = path.join(tmp, ".stacksmith");
 });
 
@@ -37,8 +37,12 @@ flags:
 ---
 `;
 
+function templatesDir(): string {
+  return path.join(tmp, ".stacksmith", "packs", "default", "templates");
+}
+
 function writeTemplate(): void {
-  fs.writeFileSync(path.join(tmp, ".stacksmith", "templates", "t1.md"), TEMPLATE, "utf8");
+  fs.writeFileSync(path.join(templatesDir(), "t1.md"), TEMPLATE, "utf8");
 }
 
 /** Adapter that records the options it received and never spawns anything. */
@@ -114,7 +118,7 @@ default_modifications:
   - add-file
 ---
 `;
-    fs.writeFileSync(path.join(tmp, ".stacksmith", "templates", "t2.md"), t2, "utf8");
+    fs.writeFileSync(path.join(templatesDir(), "t2.md"), t2, "utf8");
     // a patch mod that adds a new file (applies in any directory)
     const mod: Modification = {
       id: "add-file",

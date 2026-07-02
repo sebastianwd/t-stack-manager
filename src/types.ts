@@ -1,6 +1,7 @@
 import type { Template } from "./schemas/template.js";
 
-export type TemplateSource = "bundled" | "user";
+/** Which pack an entry came from (e.g. "default" for your own, or an imported pack name). */
+export type TemplateSource = string;
 
 /** Lightweight view of a template for `templates list`. */
 export interface TemplateSummary {

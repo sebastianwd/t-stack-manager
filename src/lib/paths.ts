@@ -44,8 +44,9 @@ export function resolveStorageDir(cwd: string = process.cwd()): string {
   return path.join(os.homedir(), ".stacksmith");
 }
 
+// The user's own entries live in the built-in "default" pack.
 export function userTemplatesDir(cwd?: string): string {
-  return path.join(resolveStorageDir(cwd), "templates");
+  return path.join(resolveStorageDir(cwd), "packs", "default", "templates");
 }
 
 /** Modifications that ship inside the package. */
@@ -54,7 +55,7 @@ export function bundledModificationsDir(): string {
 }
 
 export function userModificationsDir(cwd?: string): string {
-  return path.join(resolveStorageDir(cwd), "modifications");
+  return path.join(resolveStorageDir(cwd), "packs", "default", "modifications");
 }
 
 /** Libraries that ship inside the package. */
@@ -63,7 +64,7 @@ export function bundledLibrariesDir(): string {
 }
 
 export function userLibrariesDir(cwd?: string): string {
-  return path.join(resolveStorageDir(cwd), "libraries");
+  return path.join(resolveStorageDir(cwd), "packs", "default", "libraries");
 }
 
 /** Skills that ship inside the package. */
@@ -72,7 +73,7 @@ export function bundledSkillsDir(): string {
 }
 
 export function userSkillsDir(cwd?: string): string {
-  return path.join(resolveStorageDir(cwd), "skills");
+  return path.join(resolveStorageDir(cwd), "packs", "default", "skills");
 }
 
 export function logDir(cwd?: string): string {

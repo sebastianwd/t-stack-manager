@@ -3,6 +3,7 @@ import path from "node:path";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 import { type Template, TemplateSchema } from "../schemas/template.js";
 import type { LoadedTemplate, TemplateSource, TemplateSummary } from "../types.js";
+import { discoverStoreFiles } from "./packs.js";
 import { userTemplatesDir } from "./paths.js";
 import { fail, ok, type Result } from "./result.js";
 
@@ -22,25 +23,16 @@ export function parseFrontmatter(raw: string): ParsedMarkdown | null {
   return { frontmatter: parseYaml(yamlText), body };
 }
 
-function listMarkdownFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => path.join(dir, f));
-}
-
 /**
- * Discover template files from user storage. Bundled defaults are a seed source
- * (`stacksmith seed`), not merged at runtime, so a fresh install is clean.
+ * Discover template files across all installed packs (default pack authoritative).
+ * Bundled defaults are a seed source (`stacksmith seed`), not merged at runtime.
  */
 function discoverTemplateFiles(
   cwd?: string,
 ): Map<string, { file: string; source: TemplateSource }> {
   const result = new Map<string, { file: string; source: TemplateSource }>();
-  for (const file of listMarkdownFiles(userTemplatesDir(cwd))) {
-    const name = path.basename(file, ".md");
-    result.set(name, { file, source: "user" });
+  for (const [name, { file, pack }] of discoverStoreFiles("templates", cwd)) {
+    result.set(name, { file, source: pack });
   }
   return result;
 }

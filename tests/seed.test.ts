@@ -35,8 +35,8 @@ describe("seedDefaults", () => {
     expect(templates).toContain("tanstack-fullstack");
     const libraries = listLibraries().libraries.map((l) => l.id);
     expect(libraries).toContain("zod");
-    // seeded entries are now user-owned files
-    expect(listTemplates().templates.every((t) => t.source === "user")).toBe(true);
+    // seeded entries land in the built-in "default" pack
+    expect(listTemplates().templates.every((t) => t.source === "default")).toBe(true);
   });
 
   it("is idempotent: a second seed skips existing files", () => {

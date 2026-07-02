@@ -3,6 +3,7 @@ import path from "node:path";
 import { stringify as stringifyYaml } from "yaml";
 import { type Modification, ModificationSchema } from "../schemas/modification.js";
 import type { TemplateSource } from "../types.js";
+import { discoverStoreFiles } from "./packs.js";
 import { userModificationsDir } from "./paths.js";
 import { fail, ok, type Result } from "./result.js";
 import { parseFrontmatter } from "./storage.js";
@@ -23,21 +24,12 @@ export interface ModificationSummary {
   source: TemplateSource;
 }
 
-function listMarkdownFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => path.join(dir, f));
-}
-
 function discoverModificationFiles(
   cwd?: string,
 ): Map<string, { file: string; source: TemplateSource }> {
   const result = new Map<string, { file: string; source: TemplateSource }>();
-  for (const file of listMarkdownFiles(userModificationsDir(cwd))) {
-    const id = path.basename(file, ".md");
-    result.set(id, { file, source: "user" });
+  for (const [id, { file, pack }] of discoverStoreFiles("modifications", cwd)) {
+    result.set(id, { file, source: pack });
   }
   return result;
 }

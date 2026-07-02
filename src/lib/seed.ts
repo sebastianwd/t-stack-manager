@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { markSeeded } from "./config.js";
+import { STORES, type Store } from "./packs.js";
 import {
   bundledLibrariesDir,
   bundledModificationsDir,
@@ -11,9 +12,6 @@ import {
   userSkillsDir,
   userTemplatesDir,
 } from "./paths.js";
-
-export const STORES = ["templates", "libraries", "modifications", "skills"] as const;
-export type Store = (typeof STORES)[number];
 
 function bundledDir(store: Store): string {
   switch (store) {

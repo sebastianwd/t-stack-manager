@@ -110,6 +110,21 @@ Resolved in order:
 Bundled defaults are a seed, not a runtime fixture: `stacksmith seed` copies them
 into your storage as normal files you can edit and `remove`.
 
+## Sharing packs
+
+A pack is just the `templates/libraries/modifications/skills` dirs. Publish them in
+a repo and anyone can adopt the whole set in one command:
+
+```bash
+stacksmith add github:you/my-stack        # or a GitHub URL, or a local ./path
+```
+
+`add` only fetches, validates, and writes files, it never executes anything, so
+it's safe against untrusted packs. Skill and modification steps still run behind
+their own gates (`skills install --yes`, `modifications apply`). No domain or
+registry needed: any static host works. Exclude `config.json` and `log/` from a
+shared pack (machine/user state).
+
 ## Authoring templates
 
 Rather than hand-writing YAML, paste a better-t-stack command:

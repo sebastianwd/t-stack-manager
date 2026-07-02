@@ -1,9 +1,10 @@
 #!/usr/bin/env node
+import { runAdd } from "./commands/add.js";
 import { runInit } from "./commands/init.js";
 import { runLibraries } from "./commands/libraries.js";
 import { runLog } from "./commands/log.js";
 import { runModifications } from "./commands/modifications.js";
-import { runRemove, runSeed, runStatus } from "./commands/manage.js";
+import { runRemove, runRemovePack, runSeed, runStatus } from "./commands/manage.js";
 import { runScaffold } from "./commands/scaffold.js";
 import { runSkills } from "./commands/skills.js";
 import { runTemplatesList } from "./commands/templates-list.js";
@@ -63,7 +64,9 @@ Usage:
   stacksmith skills install --id=<id> [--target=<path>] [--package-manager=<pm>] [--yes] [--json]
   stacksmith status [--json]
   stacksmith seed [--store=<templates|libraries|modifications|skills>] [--force] [--skip] [--json]
-  stacksmith remove <templates|libraries|modifications|skills> <id> [--json]
+  stacksmith add <github:owner/repo[@ref] | url | ./path> [--name=<pack>] [--force] [--json]
+  stacksmith remove <templates|libraries|modifications|skills> <id> [--pack=<name>] [--json]
+  stacksmith remove-pack <name> [--json]
   stacksmith log --template=<name> --target=<path> [--version=<v>] [--ok] [--json]
 `;
 
@@ -174,8 +177,26 @@ async function main(): Promise<number> {
       });
     }
 
+    case "add": {
+      return runAdd({
+        source: positionals[1],
+        name: str(flags.name),
+        force: flags.force === true || flags.force === "true",
+        json,
+      });
+    }
+
     case "remove": {
-      return runRemove({ store: positionals[1], id: positionals[2], json });
+      return runRemove({
+        store: positionals[1],
+        id: positionals[2],
+        pack: str(flags.pack),
+        json,
+      });
+    }
+
+    case "remove-pack": {
+      return runRemovePack({ name: positionals[1], json });
     }
 
     case "log": {

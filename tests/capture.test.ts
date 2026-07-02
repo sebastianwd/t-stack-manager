@@ -172,11 +172,11 @@ describe("name-agnostic patch apply (the reuse-on-another-name bug)", () => {
 describe("modifications add --as-template", () => {
   it("refuses to create a bundle that links an unresolved modification", async () => {
     process.env.STACKSMITH_HOME = path.join(tmp, "store");
-    fs.mkdirSync(path.join(tmp, "store", "templates"), { recursive: true });
-    fs.mkdirSync(path.join(tmp, "store", "modifications"), { recursive: true });
+    const tplDir = path.join(tmp, "store", "packs", "default", "templates");
+    fs.mkdirSync(tplDir, { recursive: true });
     // base template that already links a modification that doesn't exist
     fs.writeFileSync(
-      path.join(tmp, "store", "templates", "base.md"),
+      path.join(tplDir, "base.md"),
       `---\nname: base\nbetter-t-stack-version: 3.30.3\nflags:\n  frontend: ["tanstack-router"]\n  install: false\n  git: false\ndefault_modifications:\n  - ghost-mod\n---\n`,
       "utf8",
     );
@@ -196,7 +196,7 @@ describe("modifications add --as-template", () => {
 
     expect(code).toBe(1);
     // the bundle must NOT have been written
-    expect(fs.existsSync(path.join(tmp, "store", "templates", "bundle-x.md"))).toBe(false);
+    expect(fs.existsSync(path.join(tplDir, "bundle-x.md"))).toBe(false);
     delete process.env.STACKSMITH_HOME;
   });
 });

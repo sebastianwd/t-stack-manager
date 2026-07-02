@@ -4,8 +4,9 @@ import { isSeeded, markSeeded } from "../lib/config.js";
 import { listLibraries } from "../lib/libraries.js";
 import { listModifications } from "../lib/modifications.js";
 import { emitError, emitJson } from "../lib/output.js";
+import { DEFAULT_PACK, type Store, STORES, listPacks, packStoreDir, packsRoot } from "../lib/packs.js";
 import { resolveStorageDir } from "../lib/paths.js";
-import { type Store, STORES, seedDefaults, userStoreDir } from "../lib/seed.js";
+import { seedDefaults } from "../lib/seed.js";
 import { listSkills } from "../lib/skills.js";
 import { listTemplates } from "../lib/storage.js";
 
@@ -56,35 +57,38 @@ export function runStatus(args: { json: boolean }): number {
     modifications: listModifications().modifications.length,
     skills: listSkills().skills.length,
   };
-  const payload = { ok: true, seeded: isSeeded(), storage: resolveStorageDir(), counts };
+  const packs = listPacks();
+  const payload = { ok: true, seeded: isSeeded(), storage: resolveStorageDir(), packs, counts };
   if (args.json) {
     emitJson(payload);
   } else {
     process.stderr.write(
       `seeded=${payload.seeded} storage=${payload.storage}\n` +
+        `packs=[${packs.join(", ")}]\n` +
         `templates=${counts.templates} libraries=${counts.libraries} modifications=${counts.modifications} skills=${counts.skills}\n`,
     );
   }
   return 0;
 }
 
-/** `stacksmith remove <store> <id>`: delete a user-owned entry file. */
-export function runRemove(args: { store?: string; id?: string; json: boolean }): number {
+/** `stacksmith remove <store> <id> [--pack=<name>]`: delete an entry (default pack). */
+export function runRemove(args: { store?: string; id?: string; pack?: string; json: boolean }): number {
   if (!isStore(args.store) || !args.id) {
     emitError(args.json, {
       code: "MISSING_ARGS",
-      message: "Usage: stacksmith remove <store> <id>",
+      message: "Usage: stacksmith remove <store> <id> [--pack=<name>]",
       hint: `store is one of: ${STORES.join(", ")}.`,
     });
     return 1;
   }
 
-  const file = path.join(userStoreDir(args.store), `${args.id}.md`);
+  const pack = args.pack ?? DEFAULT_PACK;
+  const file = path.join(packStoreDir(pack, args.store), `${args.id}.md`);
   if (!fs.existsSync(file)) {
     emitError(args.json, {
       code: "NOT_FOUND",
-      message: `No ${args.store} entry "${args.id}" in user storage (${file}).`,
-      hint: "Only user-owned entries can be removed; run `stacksmith seed` first if it is an unseeded default.",
+      message: `No ${args.store} entry "${args.id}" in pack "${pack}" (${file}).`,
+      hint: "Check --pack, or run `stacksmith seed` if it is an unseeded default. To drop a whole imported pack use `remove-pack`.",
     });
     return 1;
   }
@@ -96,7 +100,40 @@ export function runRemove(args: { store?: string; id?: string; json: boolean }):
     return 1;
   }
 
-  if (args.json) emitJson({ ok: true, store: args.store, id: args.id, removed: file });
-  else process.stderr.write(`Removed ${args.store}/${args.id}\n`);
+  if (args.json) emitJson({ ok: true, store: args.store, id: args.id, pack, removed: file });
+  else process.stderr.write(`Removed ${pack}/${args.store}/${args.id}\n`);
+  return 0;
+}
+
+/** `stacksmith remove-pack <name>`: uninstall a whole imported pack. */
+export function runRemovePack(args: { name?: string; json: boolean }): number {
+  if (!args.name) {
+    emitError(args.json, { code: "MISSING_ARGS", message: "Usage: stacksmith remove-pack <name>" });
+    return 1;
+  }
+  if (args.name === DEFAULT_PACK) {
+    emitError(args.json, {
+      code: "CANNOT_REMOVE_DEFAULT",
+      message: `Refusing to remove the "${DEFAULT_PACK}" pack (it holds your own entries).`,
+      hint: "Remove individual entries with `stacksmith remove <store> <id>`, or re-seed.",
+    });
+    return 1;
+  }
+
+  const dir = path.join(packsRoot(), args.name);
+  if (!fs.existsSync(dir)) {
+    emitError(args.json, { code: "NOT_FOUND", message: `No installed pack "${args.name}".` });
+    return 1;
+  }
+
+  try {
+    fs.rmSync(dir, { recursive: true, force: true });
+  } catch (cause) {
+    emitError(args.json, { code: "REMOVE_FAILED", message: `Could not remove pack "${args.name}": ${String(cause)}` });
+    return 1;
+  }
+
+  if (args.json) emitJson({ ok: true, pack: args.name, removed: dir });
+  else process.stderr.write(`Removed pack "${args.name}"\n`);
   return 0;
 }
