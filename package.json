@@ -1,6 +1,6 @@
 {
   "name": "t-stack-manager",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Remember your project setups: scaffold from saved better-t-stack templates and reapply the libraries, post-scaffold modifications, and agent skills you always add. A Claude Code skill backed by a TypeScript CLI.",
   "keywords": [
     "better-t-stack",
