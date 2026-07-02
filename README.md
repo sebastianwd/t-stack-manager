@@ -1,13 +1,15 @@
-# T Stack Manager
+# t-stack-manager
 
-T Stack Manager is your memory for project setups. Paste a
+[![npm](https://img.shields.io/npm/v/t-stack-manager.svg)](https://www.npmjs.com/package/t-stack-manager)
+
+t-stack-manager is your memory for project setups. Paste a
 [better-t-stack](https://www.better-t-stack.dev/) command once, save it as a named
 template, and replay it forever, with the libraries, post-scaffold tweaks, and
 agent skills you always add layered on automatically. A Claude Code skill backed
 by a CLI.
 
 It complements better-t-stack rather than replacing it: use better-t-stack to
-*design* a stack the first time, then let T Stack Manager *remember and reproduce* it
+*design* a stack the first time, then let t-stack-manager *remember and reproduce* it
 (plus your extras) every time after, no re-deciding.
 
 ## Install
@@ -175,7 +177,7 @@ default_skills: []
 Skills store how they install as an ordered recipe, since the ecosystem is not
 standardized. Steps are `run` (a shell command), `slash` (a harness command the
 agent runs), or `note` (manual). Use `{{dlx}}` / `{{pm}}` placeholders and
-T Stack Manager substitutes the project's package manager (`npx` / `pnpm dlx` / `bunx`).
+t-stack-manager substitutes the project's package manager (`npx` / `pnpm dlx` / `bunx`).
 
 ```yaml
 install:
@@ -187,7 +189,7 @@ third-party code); `slash` steps are surfaced for the agent to run in order.
 
 ## Supply-chain safety
 
-When installing a library from the catalogue, T Stack Manager resolves the newest
+When installing a library from the catalogue, t-stack-manager resolves the newest
 version published at least 7 days ago rather than replaying a pinned version. This
 reduces exposure to freshly published malicious releases.
 
