@@ -15,19 +15,28 @@ and the user's request clearly matches it, you may proceed without asking.
 
 ## 2. Resolve project name and target
 
-- **Project name:** from the user's request, or ask.
+Ask for these as plain conversational text. Do NOT use a fixed-option / multiple-choice
+question tool for the project name or a filesystem path, they are free-form and the
+tool will reject them (2-4 discrete options required). Just ask in prose.
+
+- **Project name:** from the user's request, or ask. Lowercase kebab-case; it becomes
+  the folder name and the package name.
 - **Target directory:** where the project folder should be created. Resolve it like this:
   1. Run `npx t-stack-manager config get --json` and read `defaultTargetDir`.
-  2. If it is set, use `<defaultTargetDir>/<project-name>`. State the full path and
-     proceed (no need to ask again).
-  3. If it is `null`, **ask the user** where to create the project. Never assume a
-     path. Once they answer, tell them once:
-     > "Tip: I can remember a default parent directory so I stop asking. Want me to
-     > save it? I'll run `t-stack-manager config set --default-target-dir=<parent>`."
+  2. If it is set, use `<defaultTargetDir>/<project-name>`, state the full path, and proceed.
+  3. If it is `null`, ask where to create it. Never assume a path. Offer both:
+     - **the current directory** -> pass `--target=./<project-name>`, which creates
+       `<cwd>/<project-name>`, or
+     - **a path they give** -> `<their-path>/<project-name>`.
+
+     Then, once, offer to remember it:
+     > "Want me to save a default parent directory so I stop asking next time? I'll run
+     > `t-stack-manager config set --default-target-dir=<parent>`."
 
      If they agree, run `npx t-stack-manager config set --default-target-dir=<parent> --json`
-     with the parent of the path they just chose (they can change it later with the
-     same command, or clear it with `config unset`).
+     with the parent directory (not the project folder). They can change it later with
+     the same command, or clear it with `config unset`. Do not offer to save a default
+     when they picked the current directory unless they ask.
 
   Always confirm the final full path before running anything destructive.
 
