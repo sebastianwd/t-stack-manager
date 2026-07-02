@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { runAdd } from "./commands/add.js";
+import { runConfig } from "./commands/config.js";
 import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runLibraries } from "./commands/libraries.js";
@@ -65,6 +66,9 @@ Usage:
   t-stack-manager skills add --id=<id> [--install=<json-steps>] [--url=<url>] [--bts-source=<id>] [--agents=<csv>] [--category=<cat>] [--description=<text>] [--license=<id>] [--note=<text>] [--force] [--json]
   t-stack-manager skills install --id=<id> [--target=<path>] [--package-manager=<pm>] [--yes] [--json]
   t-stack-manager status [--json]
+  t-stack-manager config [get] [--json]
+  t-stack-manager config set --default-target-dir=<path> [--json]
+  t-stack-manager config unset [--json]
   t-stack-manager seed [--store=<templates|libraries|modifications|skills>] [--force] [--skip] [--json]
   t-stack-manager add <github:owner/repo[@ref] | url | ./path> [--name=<pack>] [--force] [--json]
   t-stack-manager remove <templates|libraries|modifications|skills> <id> [--pack=<name>] [--json]
@@ -173,6 +177,14 @@ async function main(): Promise<number> {
 
     case "status": {
       return runStatus({ json });
+    }
+
+    case "config": {
+      return runConfig({
+        sub: positionals[1],
+        defaultTargetDir: str(flags["default-target-dir"]),
+        json,
+      });
     }
 
     case "seed": {

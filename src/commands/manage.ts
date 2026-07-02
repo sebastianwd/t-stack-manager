@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { isSeeded, markSeeded } from "../lib/config.js";
+import { getDefaultTargetDir, isSeeded, markSeeded } from "../lib/config.js";
 import { listLibraries } from "../lib/libraries.js";
 import { listModifications } from "../lib/modifications.js";
 import { emitError, emitJson } from "../lib/output.js";
@@ -58,12 +58,14 @@ export function runStatus(args: { json: boolean }): number {
     skills: listSkills().skills.length,
   };
   const packs = listPacks();
-  const payload = { ok: true, seeded: isSeeded(), storage: resolveStorageDir(), packs, counts };
+  const defaultTargetDir = getDefaultTargetDir() ?? null;
+  const payload = { ok: true, seeded: isSeeded(), storage: resolveStorageDir(), defaultTargetDir, packs, counts };
   if (args.json) {
     emitJson(payload);
   } else {
     process.stderr.write(
       `seeded=${payload.seeded} storage=${payload.storage}\n` +
+        `defaultTargetDir=${defaultTargetDir ?? "(unset)"}\n` +
         `packs=[${packs.join(", ")}]\n` +
         `templates=${counts.templates} libraries=${counts.libraries} modifications=${counts.modifications} skills=${counts.skills}\n`,
     );

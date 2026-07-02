@@ -31,3 +31,20 @@ export function isSeeded(cwd?: string): boolean {
 export function markSeeded(cwd?: string): void {
   writeConfig({ ...readConfig(cwd), seeded: true }, cwd);
 }
+
+/** The saved default parent directory for new scaffolds, or undefined if unset. */
+export function getDefaultTargetDir(cwd?: string): string | undefined {
+  return readConfig(cwd).defaultTargetDir;
+}
+
+/** Persist the default parent directory so scaffolds stop asking where to create. */
+export function setDefaultTargetDir(dir: string, cwd?: string): void {
+  writeConfig({ ...readConfig(cwd), defaultTargetDir: dir }, cwd);
+}
+
+/** Forget the saved default parent directory (scaffolds will ask again). */
+export function clearDefaultTargetDir(cwd?: string): void {
+  const cfg = readConfig(cwd);
+  delete cfg.defaultTargetDir;
+  writeConfig(cfg, cwd);
+}
