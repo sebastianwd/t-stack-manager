@@ -1,5 +1,11 @@
 # t-stack-manager
 
+## 0.1.6
+
+### Patch Changes
+
+- e58caa6: The `add-oxlint-tailwindcss` modification is now a standalone opt-in default: it is no longer linked to the `tanstack-fullstack` template's `default_modifications`, so scaffolds do not apply it automatically. Ask for it explicitly to apply it.
+
 ## 0.1.5
 
 ### Patch Changes
