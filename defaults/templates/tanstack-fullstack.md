@@ -26,8 +26,7 @@ flags:
   git: true
   install: true
 default_libraries: []
-default_modifications:
-  - add-oxlint-tailwindcss
+default_modifications: []
 default_skills: []
 ---
 

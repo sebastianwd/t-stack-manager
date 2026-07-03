@@ -2,8 +2,7 @@
 id: add-oxlint-tailwindcss
 description: "Install oxlint-tailwindcss and wire its plugin + rules into .oxlintrc.json (Tailwind v4 lint rules on top of oxlint)"
 kind: instructions
-applies_to:
-  - tanstack-fullstack
+applies_to: []
 idempotent: true
 source_project_name: ""
 version: "1"
