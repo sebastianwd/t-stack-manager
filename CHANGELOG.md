@@ -1,5 +1,11 @@
 # t-stack-manager
 
+## 0.1.5
+
+### Patch Changes
+
+- 9a762b2: Add a bundled `add-oxlint-tailwindcss` modification that installs `oxlint-tailwindcss` and wires its plugin, mandatory `entryPoint`, and rules into `.oxlintrc.json`. Linked as a default modification on the `tanstack-fullstack` template so it applies automatically on scaffold.
+
 ## 0.1.4
 
 ### Patch Changes
