@@ -9,15 +9,18 @@ npx t-stack-manager templates list --json
 ```
 
 Parse the `templates` array. If it is empty, tell the user there are no
-templates and stop. If there is more than one, present each template's name,
-description, and pinned version, then ask which to use. If there is exactly one
-and the user's request clearly matches it, you may proceed without asking.
+templates and stop. If there is more than one, ask which to use with a
+fixed-option / multiple-choice question (this is a discrete choice, so the
+question tool fits): one option per template, labelled with its name and a short
+line from its description + pinned version. If there is exactly one and the
+user's request clearly matches it, you may proceed without asking.
 
 ## 2. Resolve project name and target
 
-Ask for these as plain conversational text. Do NOT use a fixed-option / multiple-choice
-question tool for the project name or a filesystem path, they are free-form and the
-tool will reject them (2-4 discrete options required). Just ask in prose.
+Ask for these as plain conversational text. The fixed-option / multiple-choice
+question tool is great for discrete choices (like the template in step 1), but do
+NOT use it for the project name or a filesystem path, those are free-form and the
+tool will reject them (it requires 2-4 discrete options). Ask for name and path in prose.
 
 - **Project name:** from the user's request, or ask. Lowercase kebab-case; it becomes
   the folder name and the package name.
